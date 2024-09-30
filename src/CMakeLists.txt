@@ -41,6 +41,7 @@ add_executable(
         piece_storage.h
         piece.cpp
         piece.h
+        StaticThreadPool.cpp
         StaticThreadPool.h
 )
 

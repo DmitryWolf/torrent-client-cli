@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <atomic>
 #include <functional>
 #include <thread>
@@ -21,29 +22,12 @@ template <typename T>
 class UnboundedBlockingMPMCQueue{
 public:
     // Thread role: producer
-    void Put(T value){
-        std::lock_guard<std::mutex> guard(mutex_);
-        buffer_.push_back(std::move(value));
-        not_empty_.notify_one();
-    }
+    void Put(T value);
     
     // Thread role: consumer
-    T Take(){
-        std::unique_lock<std::mutex> lock(mutex_);
-        while (buffer_.empty()){ // 
-            // 1) Release mutex, 2) Wait 3) Reacquire mutex
-            // Spurious wakeup
-            not_empty_.wait(lock);
-        }
-        return TakeLocked();
-    }
+    T Take();
 private:
-    T TakeLocked(){
-        assert(!buffer_.empty());
-        T front = std::move(buffer_.front());
-        buffer_.pop_front();
-        return front;
-    }
+    T TakeLocked();
 
     std::deque<T> buffer_; // Guarded by mutex_
     std::mutex mutex_;
@@ -53,45 +37,17 @@ private:
 class StaticThreadPool{
     using Task = std::function<void()>;
 public:
-    StaticThreadPool(size_t workers){
-        StartWorkerThreads(workers);
-    }
-    ~StaticThreadPool() {
-        assert(workers_.empty());
-    }
+    StaticThreadPool(size_t workers);
+    ~StaticThreadPool();
  
-    void Submit(Task task){
-        tasks_.Put(std::move(task));
-    }
+    void Submit(Task task);
 
-    void Join(){
-        for (auto& worker : workers_){
-            tasks_.Put({}); // Poison pill
-        }
-        for (auto& worker : workers_){
-            worker.join();
-        }
-        workers_.clear();
-    }
+    void Join();
 
 private:
-    void StartWorkerThreads(size_t count){
-        for (size_t i = 0; i < count; ++i){
-            workers_.emplace_back([this](){
-                WorkerRoutine();
-            });
-        }
-    }
+    void StartWorkerThreads(size_t count);
     
-    void WorkerRoutine(){
-        while (true){
-            auto task = tasks_.Take();
-            if (!task){
-                break;
-            }
-            task();
-        }
-    }
+    void WorkerRoutine();
 
     std::vector<std::thread> workers_;
     UnboundedBlockingMPMCQueue<Task> tasks_;

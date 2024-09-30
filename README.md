@@ -15,7 +15,7 @@ $ brew install openssl cmake
 To launch the torrent client, use this command:
 ```
 $ make
-$ ./cmake-build/torrent-client-prototype -d <path to the directory to save the downloaded file> -p <how many percent of the file should be downloaded> <path to the torrent file>
+$ ./cmake-build/torrent-client-prototype -d <path to the directory to save the downloaded file> <path to the torrent file>
 ```
 To test the client, you can check the downloaded data for similarity with the data downloaded through another torrent client:
 ```

@@ -1,5 +1,5 @@
 ### Torrent Client
-A fully working torrent client written in C++ for experience with system calls, networks and practice in C++.
+A fully working torrent client written in C++ for experience with system calls, networks, multithreading and practice in C++.
 ### Dependencies
 To build the project, you will need the CMake build system, as well as the OpenSSL and libcurl libraries installed in the system.
 

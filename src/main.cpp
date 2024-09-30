@@ -209,31 +209,26 @@ void RunAllStagesOfDownloadingTorrentFile(const std::string& saveDirectory, size
 }
 
 
-
 int main(int argc, char* argv[]) {
-    if (argc != 6) {
-        std::cerr << "Usage: " << argv[0] << " -d <save_directory> -p <percent> <torrent_file_path>" << std::endl;
+    if (argc != 4) {
+        std::cerr << "Usage: " << argv[0] << " -d <save_directory> <torrent_file_path>" << std::endl;
         return 1;
     }
 
     std::string saveDirectory;
-    int percent = 0;
     std::string torrentFilePath;
+    int percent = 100;
 
-    // Обрабатываем аргументы командной строки
-    for (int i = 1; i < argc; ++i) {
-        std::string arg = argv[i];
-        if (arg == "-d" && i + 1 < argc) {
-            saveDirectory = argv[++i];
-        } else if (arg == "-p" && i + 1 < argc) {
-            percent = std::stoi(argv[++i]);
-        } else {
-            torrentFilePath = argv[i];
-        }
+    if (std::string(argv[1]) == "-d") {
+        saveDirectory = argv[2];
+        torrentFilePath = argv[3];
+    } else {
+        std::cerr << "Invalid arguments. Usage: " << argv[0] << " -d <save_directory> <torrent_file_path>" << std::endl;
+        return 1;
     }
-    
-    if (saveDirectory.empty() || percent <= 0 || torrentFilePath.empty()) {
-        std::cerr << "Неверные аргументы. Проверьте и повторите попытку." << std::endl;
+
+    if (saveDirectory.empty() || torrentFilePath.empty()) {
+        std::cerr << "Invalid arguments. Please check and try again." << std::endl;
         return 1;
     }
 

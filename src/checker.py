@@ -1,5 +1,6 @@
 import os
 import filecmp
+import sys
 
 def compare_folders(folder1, folder2):
     folder1_files = set(os.listdir(folder1))
@@ -26,7 +27,22 @@ def compare_folders(folder1, folder2):
 
 
 def main():
-    pass
+    if len(sys.argv) != 3:
+        print(f"Usage: {sys.argv[0]} <folder1> <folder2>")
+        sys.exit(1)
+
+    folder1 = sys.argv[1]
+    folder2 = sys.argv[2]
+
+    if not os.path.isdir(folder1):
+        print(f"Ошибка: {folder1} не является директорией.")
+        sys.exit(1)
+    
+    if not os.path.isdir(folder2):
+        print(f"Ошибка: {folder2} не является директорией.")
+        sys.exit(1)
+
+    compare_folders(folder1, folder2)
 
 if __name__ == '__main__':
     main()

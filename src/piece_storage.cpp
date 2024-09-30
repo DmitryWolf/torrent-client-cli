@@ -149,7 +149,7 @@ void PieceStorage::SavePieceToDisk(const PiecePtr& piece) {
     }
     downloadingPieces_.erase(pieceIndex);
     indicesOfSavedPiecesToDisc_.push_back(pieceIndex);
-    std::cerr << "SAVED " << pieceIndex << " , скачивается " << downloadingPieces_.size() << " , осталось: " << remainPieces_.size() << std::endl;
+    std::cout << "Сохранена часть " << pieceIndex << " , скачивается " << downloadingPieces_.size() << " , осталось: " << remainPieces_.size() << std::endl;
 }
 
 void PieceStorage::DecrementPieceInProgressCounter() {

@@ -19,6 +19,6 @@ $ ./cmake-build/torrent-client-prototype -d <path to the directory to save the d
 ```
 To test the client, you can check the downloaded data for similarity with the data downloaded through another torrent client:
 ```
-$ python3 src/checker.py <path to the first directory> <path to the second directory>
+$ python3 checker.py <path to the first directory> <path to the second directory>
 ```
 This checker compares byte by byte all files with the same names.

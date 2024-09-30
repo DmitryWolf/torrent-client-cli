@@ -21,28 +21,28 @@ FetchContent_MakeAvailable(cpr)
 
 add_executable(
         ${PROJECT_NAME}
-        main.cpp
-        peer.h
-        torrent_file.h
-        peer_connect.cpp
-        peer_connect.h
-        tcp_connect.cpp
-        tcp_connect.h
-        torrent_tracker.cpp
-        torrent_tracker.h
-        torrent_file.cpp
-        bencode.cpp
-        bencode.h
-        message.cpp
-        message.h
-        byte_tools.h
-        byte_tools.cpp
-        piece_storage.cpp
-        piece_storage.h
-        piece.cpp
-        piece.h
-        StaticThreadPool.cpp
-        StaticThreadPool.h
+        src/main.cpp
+        src/peer.h
+        src/torrent_file.h
+        src/peer_connect.cpp
+        src/peer_connect.h
+        src/tcp_connect.cpp
+        src/tcp_connect.h
+        src/torrent_tracker.cpp
+        src/torrent_tracker.h
+        src/torrent_file.cpp
+        src/bencode.cpp
+        src/bencode.h
+        src/message.cpp
+        src/message.h
+        src/byte_tools.h
+        src/byte_tools.cpp
+        src/piece_storage.cpp
+        src/piece_storage.h
+        src/piece.cpp
+        src/piece.h
+        src/StaticThreadPool.cpp
+        src/StaticThreadPool.h
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC ${OPENSSL_LIBRARIES} cpr::cpr)

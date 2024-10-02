@@ -1,4 +1,4 @@
-all: compile run
+all: compile # run
 
 compile:
 	cmake -S . -B cmake-build

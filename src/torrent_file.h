@@ -22,25 +22,15 @@ struct File {
 
 
 struct TorrentFile {
-    TorrentFile() {
-        comment = "";
-        created_by = "";
-        creation_date = 0;
-        name = "";
-        pieceLength = 0;
-        length = 0;
-        infoHash = "";
-        md5sum = "";
-    }
     std::vector<std::string> announce_list;
     std::string comment;
     std::string created_by;
-    size_t creation_date;
+    size_t creation_date = 0;
     std::string name;
     std::string md5sum;
     std::vector<std::string> pieceHashes;
-    size_t pieceLength;
-    size_t length;
+    size_t pieceLength = 0;
+    size_t length = 0;
     std::string infoHash;
     std::vector<std::pair<std::string, std::string>> otherInfo;
     std::vector<File> files;
